@@ -47,6 +47,7 @@ public class HiloServerNewMsg extends Thread {
                 int i = obtenerI(users,nick_destino);
                 
                 if(users.get(i).getEstado()){
+                    System.out.println(users.get(i).getIp());
                     enviarMensaje(new_msg,users.get(i).getIp());
                     misocket.close();
                 }else{
@@ -56,7 +57,7 @@ public class HiloServerNewMsg extends Thread {
                 }
                 
                 if(ser.getOffLineUsers().size()>0){
-                    enviarMensajesRespresados(ser.getOffLineUsers(), ser.getUsers());
+                   // enviarMensajesRespresados(ser.getOffLineUsers(), ser.getUsers());
                 }
                 
             } catch (IOException ex) {
