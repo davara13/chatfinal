@@ -30,7 +30,7 @@ public class CambiarEstado extends WindowAdapter{
     @Override
     public void windowClosing(WindowEvent e){
         try{
-            Socket misocket =  new Socket("localhost", 2000);
+            Socket misocket =  new Socket("192.168.1.63", 2000);
             Usuario new_user = new Usuario(user, ip, false);
             
             ObjectOutputStream paquete_conexion =  new ObjectOutputStream(misocket.getOutputStream());

@@ -131,7 +131,7 @@ public class Cliente extends javax.swing.JFrame implements Runnable{
         jTextArea1.append("yo: " + jTextField1.getText()+"\n");
         
         try {
-            Socket misocket = new Socket("localhost", 1000);
+            Socket misocket = new Socket("192.168.1.63", 1000);
             
             Mensaje envio = new Mensaje();
             

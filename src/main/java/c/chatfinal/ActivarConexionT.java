@@ -41,7 +41,7 @@ public class ActivarConexionT extends WindowAdapter{
     
     public void windowOpened(WindowEvent e){
         try{
-            Socket misocket =  new Socket("localhost", 2000);
+            Socket misocket =  new Socket("192.168.1.63", 2000);
             Usuario new_user = new Usuario(user, ip, true);
             
             ObjectOutputStream paquete_conexion =  new ObjectOutputStream(misocket.getOutputStream());
