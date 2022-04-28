@@ -37,11 +37,38 @@ public class HiloServerNewUser extends Thread {
                 String nick_user = new_user.getNick();
                 String user_ip = new_user.getIp();
                 Boolean estado = new_user.getEstado();
-
-                ser.notificacion("nuevo usuario: " + nick_user + "con ip: " + user_ip + "\n");
                 
+                boolean existe = false;
                 ArrayList<Usuario> users = ser.getUsers();
-                users.add(new Usuario(nick_user,user_ip,estado));
+                int i;
+                
+                for(i=0; i < users.size() ; i++){
+                    if(users.get(i).getNick().equals(nick_user)){
+                        existe = true;
+                        break;
+                    }
+                }
+
+                if (estado == false) {
+                    ser.notificacion("usuario: " + nick_user + " se desconectó \n");
+                    if (existe) {
+                        users.get(i).setEstado(estado);
+                        ser.getUsers().get(i).setEstado(estado);
+                    }
+                } else {
+                    if(existe){
+                        ser.notificacion("Usuario: " + nick_user + " se conectó con ip: " + user_ip + "\n");
+                        users.get(i).setIp(user_ip);
+                        ser.getUsers().get(i).setIp(user_ip);
+                        users.get(i).setEstado(estado);
+                        ser.getUsers().get(i).setEstado(estado);
+                    }else{
+                        ser.notificacion("Nuevo Usuario: " + nick_user + " se conectó con ip: " + user_ip + "\n");
+                        users.add(new Usuario(nick_user, user_ip, estado));
+                    }
+                    
+                    
+                }
                 
                 for(Usuario u: users ){
                     Socket envio_dest = new Socket(u.getIp(), 9191);
@@ -53,6 +80,10 @@ public class HiloServerNewUser extends Thread {
                 }
                 
                 System.out.println("numero de usuarios: " + users.size());
+                
+                for (int k = 0; k < users.size(); k++) {
+                    System.out.println("usuario: " + users.get(k).getNick() + "  tiene estado: " + users.get(k).getEstado());
+                }
                 
                 
                 flujo_entrada_newU.close();

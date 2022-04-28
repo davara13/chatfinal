@@ -40,6 +40,7 @@ public class Cliente extends javax.swing.JFrame implements Runnable{
         mihilo.start();
         
         addWindowListener(new ActivarConexionT(nombre,ip));
+        addWindowListener(new CambiarEstado(nombre,ip));
     }
 
     /**
@@ -206,13 +207,9 @@ public class Cliente extends javax.swing.JFrame implements Runnable{
             HiloClienteNewMsg hm = new  HiloClienteNewMsg(server_cliente, this);
             hm.start();
             
-            /*while(true){
-                cliente = server_cliente.accept();
-                ObjectInputStream flujoEntrada = new ObjectInputStream(cliente.getInputStream());
-                new_msg = (Mensaje) flujoEntrada.readObject();
-                new_msg.desencriptar();
-                jTextArea1.append(new_msg.getNick_fuente() + ": " + new_msg.getMsg() + "\n");
-            }*/
+            for(int i = 0; i < this.users.size(); i++){
+                System.out.println("usuario: "+ this.users.get(i).getNick() + "  tiene estado: " + this.users.get(i).getEstado());
+            }
             
         }catch(Exception e){
             System.out.println(e.getMessage());

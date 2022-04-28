@@ -37,6 +37,8 @@ public class HiloClienteNewUser extends Thread {
                 cli.actualizarUsuarios(new_user);
                 
                 userC.close();
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(HiloServerNewUser.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

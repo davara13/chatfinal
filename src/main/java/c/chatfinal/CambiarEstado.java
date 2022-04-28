@@ -6,54 +6,44 @@ package c.chatfinal;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author david
  */
-public class ActivarConexionT extends WindowAdapter{
-    
+public class CambiarEstado extends WindowAdapter{
     private String user;
     private String ip;
 
-    public ActivarConexionT(String user, String ip) {
+    public CambiarEstado(String user, String ip) {
         this.user = user;
-        this.ip = ip;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
         this.ip = ip;
     }
     
-    public void windowOpened(WindowEvent e){
+    @Override
+    public void windowClosing(WindowEvent e){
         try{
             Socket misocket =  new Socket("192.168.1.63", 2000);
-            Usuario new_user = new Usuario(user, ip, true);
+            Usuario new_user = new Usuario(user, ip, false);
             
             ObjectOutputStream paquete_conexion =  new ObjectOutputStream(misocket.getOutputStream());
             paquete_conexion.writeObject(new_user);
             
             misocket.close();
             
-            System.out.println("usuario conectado: " + user);
+            System.out.println("Usuario " + user + " se desconectó");
             
         }catch(Exception ex){
             
         }
+        
     }
     
 }
