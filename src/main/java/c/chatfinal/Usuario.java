@@ -5,6 +5,7 @@
 package c.chatfinal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,11 +15,13 @@ public class Usuario implements Serializable {
     private String nick;
     private String ip;
     private Boolean estado;
+    private ArrayList<Mensaje> MensajesRepresados;
 
     public Usuario(String nick, String ip, Boolean estado) {
         this.nick = nick;
         this.ip = ip;
         this.estado = estado;
+        MensajesRepresados = new ArrayList<Mensaje>();
     }
 
     public String getNick() {
@@ -44,9 +47,14 @@ public class Usuario implements Serializable {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
-    
-    
+
+    public ArrayList<Mensaje> getMensajesRepresados() {
+        return MensajesRepresados;
+    }
+
+    public void setMensajesRepresados(ArrayList<Mensaje> MensajesRepresados) {
+        this.MensajesRepresados = MensajesRepresados;
+    }
     
     
 }

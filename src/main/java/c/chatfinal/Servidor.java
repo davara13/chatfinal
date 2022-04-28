@@ -20,14 +20,24 @@ public class Servidor extends javax.swing.JFrame  implements Runnable{
      * Creates new form Servidor
      */
     private ArrayList<Usuario> users;
+    private ArrayList<Usuario> offLineUsers;
 
     public Servidor() {
         initComponents();
         this.users = new ArrayList<Usuario>();
+        this.offLineUsers = new ArrayList<Usuario>();
         Thread mihilo = new Thread(this);
         mihilo.start();
     }
 
+    public ArrayList<Usuario> getOffLineUsers() {
+        return offLineUsers;
+    }
+
+    public void setOffLineUsers(ArrayList<Usuario> offLineUsers) {
+        this.offLineUsers = offLineUsers;
+    }
+    
     public ArrayList<Usuario> getUsers() {
         return users;
     }
@@ -138,6 +148,10 @@ public class Servidor extends javax.swing.JFrame  implements Runnable{
     
     public void notificacion(String n){
         jTextArea1.append(n);
+    }
+    
+    public void agregarOffline(Usuario u){
+        this.offLineUsers.add(u);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

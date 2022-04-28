@@ -54,6 +54,7 @@ public class HiloServerNewUser extends Thread {
                     if (existe) {
                         users.get(i).setEstado(estado);
                         ser.getUsers().get(i).setEstado(estado);
+                        ser.agregarOffline(new_user);
                     }
                 } else {
                     if(existe){
@@ -66,15 +67,20 @@ public class HiloServerNewUser extends Thread {
                         ser.notificacion("Nuevo Usuario: " + nick_user + " se conectó con ip: " + user_ip + "\n");
                         users.add(new Usuario(nick_user, user_ip, estado));
                     }
-                    
-                    
+                }
+                
+                ArrayList<Usuario> usersActivos = new ArrayList<Usuario>();
+                for(Usuario u: users ){
+                    if(u.getEstado()){
+                        usersActivos.add(u);
+                    } 
                 }
                 
                 for(Usuario u: users ){
                     Socket envio_dest = new Socket(u.getIp(), 9191);
                     
                     ObjectOutputStream flujo_salida = new ObjectOutputStream(envio_dest.getOutputStream());
-                    flujo_salida.writeObject(users);
+                    flujo_salida.writeObject(usersActivos);
                     
                     envio_dest.close();
                 }
@@ -85,9 +91,9 @@ public class HiloServerNewUser extends Thread {
                     System.out.println("usuario: " + users.get(k).getNick() + "  tiene estado: " + users.get(k).getEstado());
                 }
                 
-                
                 flujo_entrada_newU.close();
                 userS.close();
+                
             } catch (IOException ex) {
                 Logger.getLogger(HiloServerNewUser.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
